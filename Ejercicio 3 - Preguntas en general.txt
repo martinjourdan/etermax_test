@@ -1,0 +1,13 @@
+a) Conozco "cron" que junto con "crontab" permiten el scheduleo de tareas a traves de un archivo de texto. También, la notación de crontab puede ser utilizada desde un planificador como por ejemplo Jenkins.
+
+b) Utilizaria crontab para imprimir en un archivo la salida (El log).
+
+c) En el caso que el directorio sea por ejemplo un archivo ya generado, puedo utilizar el comando "cp" de la siguiente manera:
+
+aws s3 cp home/files/ s3://etermax/data-exported/download_data/ --recursive
+
+Siendo "home/files" el directorio donde se encuentra el archivo a subir y "s3://etermax/data-exported/download_data/" el path del bucket en S3
+
+Utilizo el comando "recursive" para que ejecute el comando en todos los archivos u objetos que esten dentro del directorio especificado.
+
+d) Propondría que antes de sacar los datos de la base Redshift se suban los mismos a S3 desde donde pueden ser accedidos a través de Spectrum (Otro servicio de AWS). El hecho de que S3 tenga mejor velocidad con respecto a otros servicios de AWS para Storage (Como el caso de Glacier), que guardar datos es menos costoso que agrandar el cluster de Redshift y que sus datos son facilmente accesibles a través de una simple query en SQL utilizando Spectrum me hace pensar que es la manera mas conveniente de preservar los datos teniendo en cuenta la buena accesibilidad y el bajo costo. A pesar de esto, es necesario destacar que Spectrum tiene un costo que varía de acuerdo a la cantidad de queries que se realizan, pero teniendo en cuenta que se especifica que dichos datos no seran frecuentemente consultados me hace creer que es la solucion mas optima que se puede obtener utilizando los servicios cloud de AWS.
